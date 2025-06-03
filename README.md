@@ -1,54 +1,35 @@
-# 小智 AI 聊天机器人 （XiaoZhi AI Chatbot）
+# 小智AI微信小程序蓝牙配网助手（WeXin BLE Provison for xiaozhi esp32）
 
-（中文 | [English](README_en.md) | [日本語](README_ja.md)）
+
 
 ## 视频介绍
 
-👉 [ESP32+SenseVoice+Qwen72B打造你的AI聊天伴侣！【bilibili】](https://www.bilibili.com/video/BV11msTenEH3/)
+👉 3分钟让小智AI实现微信小程序配网，免费、开源、可商用的小智AI配网助手
 
-👉 [给小智装上 DeepSeek 的聪明大脑【bilibili】](https://www.bilibili.com/video/BV1GQP6eNEFG/)
-
-👉 [手工打造你的 AI 女友，新手入门教程【bilibili】](https://www.bilibili.com/video/BV1XnmFYLEJN/)
 
 ## 项目目的
 
-本项目是由虾哥开源的一个开源项目，以 MIT 许可证发布，允许任何人免费使用，并可以用于商业用途。
+本项目基于虾哥开源的xiaozhi-esp32项目和ESP官方配网组件network_provisioning，为小智AI增加蓝牙配网模式。操作简单，通过微信扫描二维码，借助小程序即可快速完成设备配网操作，无需安装第三方应用。
+本项目由狮鲸智能设备创业者联盟提供技术支持，以 MIT 许可证发布，允许任何人免费使用，并可以用于商业用途（此声明仅适用于本项目蓝牙配网模式相关的代码，xiaozhi-esp32相关代码需遵守原项目许可证）。
 
-我们希望通过这个项目，能够帮助更多人入门 AI 硬件开发，了解如何将当下飞速发展的大语言模型应用到实际的硬件设备中。无论你是对 AI 感兴趣的学生，还是想要探索新技术的开发者，都可以通过这个项目获得宝贵的学习经验。
+我们希望通过这个项目，能够帮助小智AI创业者更快速的实现商业化落地。无论你是个人创业者，还是勇于创新的企业，都可以免费加入狮鲸智能设备创业者联盟，大家资源共享，携手共进！
 
 欢迎所有人参与到项目的开发和改进中来。如果你有任何想法或建议，请随时提出 Issue 或加入群聊。
 
-学习交流 QQ 群：376893254
+狮鲸智能设备创业者联盟QQ 群：
 
 ## 已实现功能
 
-- Wi-Fi / ML307 Cat.1 4G
-- BOOT 键唤醒和打断，支持点击和长按两种触发方式
-- 离线语音唤醒 [ESP-SR](https://github.com/espressif/esp-sr)
-- 流式语音对话（WebSocket 或 UDP 协议）
-- 支持国语、粤语、英语、日语、韩语 5 种语言识别 [SenseVoice](https://github.com/FunAudioLLM/SenseVoice)
-- 声纹识别，识别是谁在喊 AI 的名字 [3D Speaker](https://github.com/modelscope/3D-Speaker)
-- 大模型 TTS（火山引擎 或 CosyVoice）
-- 大模型 LLM（Qwen, DeepSeek, Doubao）
-- 可配置的提示词和音色（自定义角色）
-- 短期记忆，每轮对话后自我总结
-- OLED / LCD 显示屏，显示信号强弱或对话内容
-- 支持 LCD 显示图片表情
-- 支持多语言（中文、英文）
-
-## 硬件部分
-
-### 面包板手工制作实践
-
-详见飞书文档教程：
-
-👉 [《小智 AI 聊天机器人百科全书》](https://ccnphfhqs21z.feishu.cn/wiki/F5krwD16viZoF0kKkvDcrZNYnhb?from=from_copylink)
-
-面包板效果图如下：
-
-![面包板效果图](docs/wiring2.jpg)
+- 一键切换配网模式和聊天模式
+- 微信扫码直通小程序配网助手
+- 屏显二维码支持开启和关闭，支持分辨率（128、64、32）选择，方便适配不同尺寸屏幕
+- 极简集成，提供独立的蓝牙配网模式集成包，通过简单拷贝和少量参数修改，三分钟就可为您的小智AI项目添加蓝牙配网模式
+- 极简刷机，提供集成蓝牙配网模式的小智AI一键刷机包，方便快速体验微信小程序蓝牙配网效果
+- 提供永久免费的微信小程序蓝牙配网助手，微信小程序搜索“师景AI”或扫描下方二维码即可打开蓝牙配网助手
 
 ### 已支持的开源硬件
+
+支持小智AI官方支持的所有硬件（理论上全部支持，但限于手里的开发板有限，尚未完成全部测试。欢迎有资源的小伙伴告知测试结果，感谢！）
 
 - <a href="https://oshwhub.com/li-chuang-kai-fa-ban/li-chuang-shi-zhan-pai-esp32-s3-kai-fa-ban" target="_blank" title="立创·实战派 ESP32-S3 开发板">立创·实战派 ESP32-S3 开发板</a>
 - <a href="https://github.com/espressif/esp-box" target="_blank" title="乐鑫 ESP32-S3-BOX3">乐鑫 ESP32-S3-BOX3</a>
@@ -106,15 +87,15 @@
 
 ### 免开发环境烧录
 
-新手第一次操作建议先不要搭建开发环境，直接使用免开发环境烧录的固件。
+新手第一次操作建议先不要搭建开发环境，直接使用免开发环境烧录的固件。固件烧录方法与小智AI官网一致。
 
-固件默认接入 [xiaozhi.me](https://xiaozhi.me) 官方服务器，目前个人用户注册账号可以免费使用 Qwen 实时模型。
+固件默认接入 [xiaozhi.me](https://xiaozhi.me) 官方服务器。
 
 👉 [Flash烧录固件（无IDF开发环境）](https://ccnphfhqs21z.feishu.cn/wiki/Zpz4wXBtdimBrLk25WdcXzxcnNS) 
 
 
 ### 开发环境
-
+开发环境与小智AI官方一致：
 - Cursor 或 VSCode
 - 安装 ESP-IDF 插件，选择 SDK 版本 5.3 或以上
 - Linux 比 Windows 更好，编译速度快，也免去驱动问题的困扰
@@ -122,8 +103,10 @@
 
 ### 开发者文档
 
-- [开发板定制指南](main/boards/README.md) - 学习如何为小智创建自定义开发板适配
-- [物联网控制模块](main/iot/README.md) - 了解如何通过AI语音控制物联网设备
+小智AI蓝牙配网模式集成指南：
+- 下载小智AI蓝牙配网模式集成包
+- 将集成包中的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目，目录为main\boards\common，与board.h同级
+- 将集成包中的main.cc和partitions.csv文件拷贝到你的小智AI项目，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖】
 
 
 ## 智能体配置
