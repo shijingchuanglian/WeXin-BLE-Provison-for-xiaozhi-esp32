@@ -1,0 +1,9 @@
+{
+    "target": "esp32s3",
+    "builds": [
+        {
+            "name": "espai-v1-2.8tft-wifi",
+            "sdkconfig_append": []
+        }
+    ]
+}
