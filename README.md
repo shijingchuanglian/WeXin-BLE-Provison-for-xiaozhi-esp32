@@ -105,28 +105,24 @@
 
 小智AI蓝牙配网模式集成指南：
 - 下载小智AI蓝牙配网模式集成包
-- 将集成包中的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目，目录为main\boards\common，与board.h同级
-- 将集成包中的main.cc和partitions.csv文件拷贝到你的小智AI项目，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖】
+- 将集成包中的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目的main\boards\common目录下，与board.h同级
+- 将集成包中的main.cc、Kconfig.projbuild文件拷贝到你的小智AI项目的main目录下，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
+- 将集成包中的partitions.csv拷贝到你的小智AI项目的根目录，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
+- 打开menuconfig，导航到Component config\Bluetooth菜单，并进行如下配置：
+  - Host:NimBLE-BLE only  备注：小智AI默认Host配置为Bluedroid-dual-mode，此项必须改为NimBLE-BLE only，否则编译会报错
+  
+  以下为可选配置
+- 打开menuconfig，导航到WeiXin Provision Configuration菜单，并进行如下配置：
+  - 配网传输方式：蓝牙低功耗（BLE）  备注：默认
+  - Protocomm安全版本：安全版本0   备注：默认为0，当前只开放安全版本0，未来会逐步开放安全版本1和2
+  - 显示配网小程序二维码：关闭   备注：默认关闭，如果你的屏幕大于1.5寸，推荐打开，打开后可以选择二维码分辨率；如果你的屏幕小于1.5寸，可以尝试将二维码印制在设备外壳上
+  - 完成后重启设备：打开   备注：默认打开，等待设备配网成功后，设备自动重启并切换到聊天模式
 
 
 ## 智能体配置
+配网完成后，进入小智AI官方后台进行智能体配置，配置方法与小智AI官方一致。
 
-如果你已经拥有一个小智 AI 聊天机器人设备，可以登录 [xiaozhi.me](https://xiaozhi.me) 控制台进行配置。
+登录 [xiaozhi.me](https://xiaozhi.me) 控制台进行配置。
 
 👉 [后台操作视频教程（旧版界面）](https://www.bilibili.com/video/BV1jUCUY2EKM/)
 
-## 技术原理与私有化部署
-
-👉 [一份详细的 WebSocket 通信协议文档](docs/websocket.md)
-
-在个人电脑上部署服务器，可以参考另一位作者同样以 MIT 许可证开源的项目 [xiaozhi-esp32-server](https://github.com/xinnan-tech/xiaozhi-esp32-server)
-
-## Star History
-
-<a href="https://star-history.com/#78/xiaozhi-esp32&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=78/xiaozhi-esp32&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=78/xiaozhi-esp32&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=78/xiaozhi-esp32&type=Date" />
- </picture>
-</a>
