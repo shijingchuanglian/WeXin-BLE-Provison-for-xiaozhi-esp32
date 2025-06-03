@@ -112,6 +112,13 @@
   - espressif/network_provisioning: ^1.0.5
   - espressif/qrcode: "^0.1.0"
   - 建议位置放在tny-robotics/sh1106-esp-idf前面
+- 打开板级初始化代码类，如main\boards\bread-compact-wifi\compact_wifi_board.cc，添加配网模式和聊天模式切换逻辑，代码如下：
+  - 引入配网管理类的头文件：#include "provision_manager.h"
+  - 导航到boot_button_.OnClick方法，然后添加 boot_button_.OnLongPress方法，通过长按boot键触发聊天模式与配网模式的切换。
+    - boot_button_.OnLongPress([this]() {
+    -     //重启设备，并进入配网模式
+    -     ProvisionManager::GetInstance().rebootAndclaerNVS();
+    - });
 - 打开menuconfig，导航到Component config\Bluetooth菜单，并进行如下配置：
   - Host:NimBLE-BLE only  备注：小智AI默认Host配置为Bluedroid-dual-mode，此项必须改为NimBLE-BLE only，否则编译会报错
   
