@@ -104,26 +104,26 @@
 ### 开发者文档
 
 小智AI蓝牙配网模式集成指南：
-- 下载小智AI蓝牙配网模式集成包
-- 将集成包中的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目的main\boards\common目录下，与board.h同级
-- 将集成包中的main.cc、Kconfig.projbuild文件拷贝到你的小智AI项目的main目录下，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
-- 将集成包中的partitions.csv拷贝到你的小智AI项目的根目录，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
-- 打开main\idf_component.yml，并新增两行记录，用于下载蓝牙配网依赖的ESP官方插件：
+1）下载小智AI蓝牙配网模式集成包
+2）将集成包中main\boards\common目录下的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目的main\boards\common目录下，与board.h同级
+3）将集成包中main目录下的main.cc、Kconfig.projbuild文件拷贝到你的小智AI项目的main目录下，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
+4）将集成包中根目录下的partitions.csv拷贝到你的小智AI项目的根目录，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
+5）打开main\idf_component.yml，并新增两行记录，用于下载蓝牙配网依赖的ESP官方插件：
   - espressif/network_provisioning: ^1.0.5
   - espressif/qrcode: "^0.1.0"
   - 建议位置放在tny-robotics/sh1106-esp-idf前面
-- 打开板级初始化代码类，如main\boards\bread-compact-wifi\compact_wifi_board.cc，添加配网模式和聊天模式切换逻辑，代码如下：
+6）打开板级初始化代码类，如main\boards\bread-compact-wifi\compact_wifi_board.cc，添加配网模式和聊天模式切换逻辑，代码如下：
   - 引入配网管理类的头文件：#include "provision_manager.h"
   - 导航到boot_button_.OnClick方法，然后添加 boot_button_.OnLongPress方法，通过长按boot键触发聊天模式与配网模式的切换。
     - boot_button_.OnLongPress([this]() {
     -     //重启设备，并进入配网模式
     -     ProvisionManager::GetInstance().rebootAndclaerNVS();
     - });
-- 打开menuconfig，导航到Component config\Bluetooth菜单，并进行如下配置：
+7）打开menuconfig，导航到Component config\Bluetooth菜单，并进行如下配置：
   - Host:NimBLE-BLE only  备注：小智AI默认Host配置为Bluedroid-dual-mode，此项必须改为NimBLE-BLE only，否则编译会报错
   
-  以下为可选配置
-- 打开menuconfig，导航到WeiXin Provision Configuration菜单，并进行如下配置：
+  以下为可选配置：
+8）打开menuconfig，导航到WeiXin Provision Configuration菜单，并进行如下配置：
   - 配网传输方式：蓝牙低功耗（BLE）  备注：默认
   - Protocomm安全版本：安全版本0   备注：默认为0，当前只开放安全版本0，未来会逐步开放安全版本1和2
   - 显示配网小程序二维码：关闭   备注：默认关闭，如果你的屏幕大于1.5寸，推荐打开，打开后可以选择二维码分辨率；如果你的屏幕小于1.5寸，可以尝试将二维码印制在设备外壳上
