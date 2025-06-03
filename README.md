@@ -108,6 +108,10 @@
 - 将集成包中的provision_manager.cc、provision_manager.h和prov-image文件夹拷贝到你的小智AI项目的main\boards\common目录下，与board.h同级
 - 将集成包中的main.cc、Kconfig.projbuild文件拷贝到你的小智AI项目的main目录下，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
 - 将集成包中的partitions.csv拷贝到你的小智AI项目的根目录，并覆盖原来的文件【如果你项目的main.cc和partitions.csv文件已经自定义，请不要直接覆盖，需谨慎处理】
+- 打开main\idf_component.yml，并新增两行记录，用于下载蓝牙配网依赖的ESP官方插件：
+  - espressif/network_provisioning: ^1.0.5
+  - espressif/qrcode: "^0.1.0"
+  - 建议位置放在tny-robotics/sh1106-esp-idf前面
 - 打开menuconfig，导航到Component config\Bluetooth菜单，并进行如下配置：
   - Host:NimBLE-BLE only  备注：小智AI默认Host配置为Bluedroid-dual-mode，此项必须改为NimBLE-BLE only，否则编译会报错
   
