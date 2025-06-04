@@ -743,9 +743,12 @@ void ProvisionManager::EnterProvisionMode(std::string ssid_prefix,std::string la
 #endif  
    
 #else
+    har prov_alert_en[256];
+    snprintf(prov_alert_en, sizeof(prov_alert_en), "Device Name：\n%s\nPlease scan the QR code or search for the weixin Mini Program “师景AI” to set up your device.", service_name);
+    ESP_LOGE(TAG,"%s",prov_alert_en);
+
     char prov_alert[256];
     snprintf(prov_alert, sizeof(prov_alert), "设备名称：\n%s\n请扫描二维码或微信搜索小程序“师景AI”，打开配网助手为您的设备配网。", service_name);
-    ESP_LOGE(TAG,"%s",prov_alert);
     alert_prov("配网模式",prov_alert,"happy");
 
 #endif /* CONFIG_WEIXIN_PROV_SHOW_QR */
@@ -919,9 +922,13 @@ void ProvisionManager::wifi_prov_print_qr(const char *name, const char *username
 
 void ProvisionManager::wifi_prov_show_qr(int imgWidth, int imgHeight,const lv_image_dsc_t* QRimageDsc)
 {
+    char prov_alert_en[256];
+    snprintf(prov_alert_en, sizeof(prov_alert_en), "Please scan the QR code to set up your device. If the QR code is not shown, please search for the weixin Mini Program “师景AI” to set up your device.\nDevice Name：\n%s", service_name);
+    ESP_LOGE(TAG,"%s",prov_alert_en);
+
     char prov_alert[256];
     snprintf(prov_alert, sizeof(prov_alert), "请微信扫描二维码为您的设备配网。如果二维码未展示，请微信搜索小程序“师景AI”打开配网助手。\n设备名称为：\n%s", service_name);
-    ESP_LOGE(TAG,"%s",prov_alert);
+    
 
      if (!display_) {
             ESP_LOGE(TAG, "无法获取显示设备");
